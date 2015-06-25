@@ -1,21 +1,43 @@
-"NeoBundle Scripts-----------------------------
-filetype off
+ " Note: Skip initialization for vim-tiny or vim-small.
+ if 0 | endif
 
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
-  endif
+ if has('vim_starting')
+   if &compatible
+     set nocompatible               " Be iMproved
+   endif
 
-  " Required:
-  set runtimepath+=/home/teshima_haruki/.vim/bundle/neobundle.vim/
-endif
+   " Required:
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+ endif
 
-" Required:
-call neobundle#begin(expand('/home/teshima_haruki/.vim/bundle/'))
+ " Required:
+ call neobundle#begin(expand('~/.vim/bundle/'))
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+ " Let NeoBundle manage NeoBundle
+ " Required:
+ NeoBundleFetch 'Shougo/neobundle.vim'
+
+
+
+
+
+
+
+"if has('vim_starting')
+"  if &compatible
+"    set nocompatible               " Be iMproved
+"  endif
+"
+"  " Required:
+"  set runtimepath+=/home/teshima_haruki/.vim/bundle/neobundle.vim/
+"endif
+"
+"" Required:
+"call neobundle#begin(expand('/home/teshima_haruki/.vim/bundle/'))
+"
+"" Let NeoBundle manage NeoBundle
+"" Required:
+"NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add or remove your Bundles here:
 NeoBundle 'Shougo/neosnippet.vim'
@@ -54,7 +76,7 @@ set tabstop=4 "tab文字が占める幅
 set autoindent "改行時に前の行のインデントを継続
 set expandtab "タブ入力をスペースで行う
 set shiftwidth=4 "自動インデントでずれる幅
-set colorcolumn=80 "80文字目に縦ライン
+"set colorcolumn=80 "80文字目に縦ライン
 
 "esc2回でハイライトを消す
 nnoremap <Esc><Esc> :<C-u>set nohlsearch<Return>
