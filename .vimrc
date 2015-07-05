@@ -1,5 +1,4 @@
- " Note: Skip initialization for vim-tiny or vim-small.
- if 0 | endif
+if !1| finish | endif
 
  if has('vim_starting')
    if &compatible
@@ -18,27 +17,6 @@
  NeoBundleFetch 'Shougo/neobundle.vim'
 
 
-
-
-
-
-
-"if has('vim_starting')
-"  if &compatible
-"    set nocompatible               " Be iMproved
-"  endif
-"
-"  " Required:
-"  set runtimepath+=/home/teshima_haruki/.vim/bundle/neobundle.vim/
-"endif
-"
-"" Required:
-"call neobundle#begin(expand('/home/teshima_haruki/.vim/bundle/'))
-"
-"" Let NeoBundle manage NeoBundle
-"" Required:
-"NeoBundleFetch 'Shougo/neobundle.vim'
-
 " Add or remove your Bundles here:
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
@@ -46,7 +24,27 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+
+
+" ファイルをツリー表示ctr+e
 NeoBundle 'scrooloose/nerdtree'
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
+" nerdcommenter の設定(カンマ二つでコメントのオンオフ)
+NeoBundle 'scrooloose/nerdcommenter'
+let NERDSpaceDelims = 1
+nmap ,, <Plug>NERDCommenterToggle
+vmap ,, <Plug>NERDCommenterToggle
+
+" jkキーを加速
+NeoBundle 'rhysd/accelerated-jk'
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+
+" スペース２回でファイル履歴
+NeoBundle 'yegappan/mru'
+nmap <Space><Space> :MRU<CR>
+
 "色
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'tomasr/molokai'
@@ -60,13 +58,20 @@ NeoBundle 'altercation/vim-colors-solarized'
 " Required:
 call neobundle#end()
 
+"色変更
+autocmd colorscheme molokai highlight Cursor guifg=Purple guibg=Purple
+autocmd colorscheme molokai highlight Visual ctermbg=8
+colorscheme molokai;
+
+syntax on
+" Required
+filetype plugin indent on
+
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
-" Required:
-filetype plugin indent on
 set whichwrap=b,s,h,l,<,>,[,] "行頭行末をまたいで左右移動
 set number "行番号を表示
 set cursorline "カーソル行の背景色を変える
@@ -98,15 +103,10 @@ nnoremap <BS> X
 "挿入モードでもCtrl＋で移動
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
 
-imap <c-j> <esc>
-
-"色変更
-autocmd colorscheme molokai highlight Cursor guifg=Purple guibg=Purple
-autocmd colorscheme molokai highlight Visual ctermbg=8
-colorscheme molokai 
+imap jj <esc>
 
 "ステータスバー的なやつ
 set laststatus=2
@@ -114,3 +114,9 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
 
+" vimrcを保存した時に自動更新
+augroup source-vimrc
+  autocmd!
+  autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
+  autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+augroup END
