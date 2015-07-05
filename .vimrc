@@ -1,4 +1,4 @@
-if !1| finish | endif
+ if !1  | finish | endif
 
  if has('vim_starting')
    if &compatible
@@ -24,7 +24,6 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
 
 " ファイルをツリー表示ctr+e
 NeoBundle 'scrooloose/nerdtree'
@@ -61,17 +60,16 @@ call neobundle#end()
 "色変更
 autocmd colorscheme molokai highlight Cursor guifg=Purple guibg=Purple
 autocmd colorscheme molokai highlight Visual ctermbg=8
-colorscheme molokai;
-
-syntax on
-" Required
-filetype plugin indent on
-
+colorscheme molokai 
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
+
+
+" Required:
+filetype plugin indent on
 set whichwrap=b,s,h,l,<,>,[,] "行頭行末をまたいで左右移動
 set number "行番号を表示
 set cursorline "カーソル行の背景色を変える
@@ -103,10 +101,11 @@ nnoremap <BS> X
 "挿入モードでもCtrl＋で移動
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
 
-imap jj <esc>
+imap <c-j> <esc>
+
 
 "ステータスバー的なやつ
 set laststatus=2
