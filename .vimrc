@@ -102,8 +102,8 @@ nnoremap <BS> X
 "挿入モードでもCtrl＋で移動
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
-inoremap <C-l> <Left>
-inoremap <C-h> <Right>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
 
 imap jj <esc>
 
