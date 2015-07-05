@@ -101,10 +101,10 @@ nnoremap <BS> X
 "挿入モードでもCtrl＋で移動
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
+inoremap <C-l> <Left>
+inoremap <C-h> <Right>
 
-imap <c-j> <esc>
+imap jj <esc>
 
 
 "ステータスバー的なやつ
