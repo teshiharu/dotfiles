@@ -45,6 +45,12 @@ nmap k <Plug>(accelerated_jk_gk)
 NeoBundle 'yegappan/mru'
 nmap <Space><Space> :MRU<CR>
 
+" ウェブブラウザ
+NeoBundle 'plasticboy/vim-markdown'
+
+" サブモードを自由に定義
+NeoBundle 'kana/vim-submode'
+
 "色
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'tomasr/molokai'
@@ -61,7 +67,7 @@ call neobundle#end()
 "色変更
 autocmd colorscheme molokai highlight Cursor guifg=Purple guibg=Purple
 autocmd colorscheme molokai highlight Visual ctermbg=8
-colorscheme molokai 
+colorscheme Tomorrow-Night-Bright 
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
@@ -79,6 +85,7 @@ set t_Co=256 "スクリーンを256色に
 set tabstop=4 "tab文字が占める幅
 set autoindent "改行時に前の行のインデントを継続
 set expandtab "タブ入力をスペースで行う
+set showtabline=2 " 常にタブラインを表示
 set shiftwidth=4 "自動インデントでずれる幅
 "set colorcolumn=80 "80文字目に縦ライン
 
@@ -104,19 +111,53 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
-
+" jjでエスケープ
 imap jj <esc>
 
+
+
+"------画面分割----------
+nnoremap s <Nop>
+"ss svで画面分割
+nnoremap ss :<C-u>sp<CR>
+nnoremap sv :<C-u>vs<CR>
+"sqでファイルを閉じる
+nnoremap sq :<C-u>q<CR>
+"s hjklで画面分割間を移動
+"sw 次の画面に移る
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap sh <C-w>h
+nnoremap sw <C-w>w
+"s HJKLで分割した画面を移動させる
+nnoremap sJ <C-w>J
+nnoremap sK <C-w>K
+nnoremap sL <C-w>L
+nnoremap sH <C-w>H
+"s><+-画面幅調節
+"s= 画面幅を揃える
+call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
+call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
+call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
+call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
+nnoremap s= <C-w>=
+
+"------タブ関連----------
+"st 新規タブ sn,spでタブ移動
+nnoremap sn gt
+nnoremap sp gT
+nnoremap st :<C-u>tabnew<CR>
 
 "ステータスバー的なやつ
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
+            \ 'colorscheme': 'wombat',
+            \ }
 
 " vimrcを保存した時に自動更新
 augroup source-vimrc
-  autocmd!
-  autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
-  autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+    autocmd!
+    autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
+    autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
 augroup END
