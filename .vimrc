@@ -51,6 +51,11 @@ NeoBundle 'plasticboy/vim-markdown'
 " サブモードを自由に定義
 NeoBundle 'kana/vim-submode'
 
+" 書いたコードを即実行
+NeoBundle 'thinca/vim-quickrun'
+let g:quickrun_config={'*': {'split': ''}}
+set splitbelow
+
 "色
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'tomasr/molokai'
