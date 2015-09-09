@@ -69,10 +69,6 @@ NeoBundle 'altercation/vim-colors-solarized'
 " Required:
 call neobundle#end()
 
-"色変更
-autocmd colorscheme molokai highlight Cursor guifg=Purple guibg=Purple
-autocmd colorscheme molokai highlight Visual ctermbg=8
-colorscheme Tomorrow-Night-Bright 
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
@@ -93,6 +89,12 @@ set expandtab "タブ入力をスペースで行う
 set showtabline=2 " 常にタブラインを表示
 set shiftwidth=4 "自動インデントでずれる幅
 "set colorcolumn=80 "80文字目に縦ライン
+
+"色変更
+autocmd colorscheme molokai highlight Cursor guifg=Purple guibg=Purple
+autocmd colorscheme molokai highlight Visual ctermbg=8
+" colorscheme Tomorrow-Night-Bright 
+colorscheme molokai 
 
 "esc2回でハイライトを消す
 nnoremap <Esc><Esc> :<C-u>set nohlsearch<Return>
@@ -118,8 +120,14 @@ inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 " jjでエスケープ
 imap jj <esc>
-
-
+" PerlTidy Perl/Tidyがインストールされている必要あり
+map ,ptv <Esc>:'<,'>! perltidy<CR>
+map ,pt <Esc>:%! perltidy<CR>
+" ファイルを閉じてもundo,redoがのこる
+if has('persistent_undo')
+    set undodir=~/.vim/undo
+    set undofile
+endif
 
 "------画面分割----------
 nnoremap s <Nop>
@@ -162,7 +170,15 @@ let g:lightline = {
 
 " vimrcを保存した時に自動更新
 augroup source-vimrc
-    autocmd!
-    autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
-    autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+  autocmd!
+  autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
+  autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
 augroup END
+
+"全角スペースと行末の半角スペースをハイライト表示
+augroup HighlightTrailingSpaces
+  autocmd!
+  autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=darkred ctermbg=darkred
+  autocmd VimEnter,WinEnter * match TrailingSpaces /　\|\s\+$/
+augroup END
+
