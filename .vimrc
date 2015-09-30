@@ -29,6 +29,11 @@ NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 " ファイルをツリー表示ctr+e
 NeoBundle 'scrooloose/nerdtree'
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
+" 引数なしでファイルツリーを初期表示
+let file_name = expand("%:p")
+if has('vim_starting') &&  file_name == ""
+    autocmd VimEnter * execute 'NERDTree ./'
+endif
 
 " nerdcommenter の設定(カンマ二つでコメントのオンオフ)
 NeoBundle 'scrooloose/nerdcommenter'
