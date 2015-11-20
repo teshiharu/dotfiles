@@ -141,13 +141,14 @@ nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 "sqでファイルを閉じる
 nnoremap sq :<C-u>q<CR>
+nnoremap sw :<C-u>w<CR>
+nnoremap swq :<C-u>wq<CR>
 "s hjklで画面分割間を移動
 "sw 次の画面に移る
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
 nnoremap sl <C-w>l
 nnoremap sh <C-w>h
-nnoremap sw <C-w>w
 "s HJKLで分割した画面を移動させる
 nnoremap sJ <C-w>J
 nnoremap sK <C-w>K
