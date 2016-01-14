@@ -85,3 +85,11 @@ source $ZSH/oh-my-zsh.sh
 #
 alias pmversion='perl -le '"'"'for $module (@ARGV) { eval "use $module"; print "$module ", ${"$module\::VERSION"} || "not found" }'"'"
 mikke(){ find ./ | xargs grep --color $1 }
+
+gs(){
+    git status;
+    git add .;
+    git add -u;
+    git commit -m "$1";
+    git status;
+}
