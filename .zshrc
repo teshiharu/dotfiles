@@ -92,4 +92,5 @@ gs(){
     git add -u;
     git commit -m "$1";
     git status;
+    echo "$1";
 }
