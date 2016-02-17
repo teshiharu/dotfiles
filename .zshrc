@@ -1,8 +1,16 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+
+# perlbrew
 source ~/perl5/perlbrew/etc/bashrc
 
-# Set name of the theme to load.
+# rbenv
+export RBENV_ROOT=${HOME}"/rbenv"
+export PATH="$RBENV_ROOT/bin:$PATH"
+eval "$(rbenv init -)"
+
+
+ #Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
