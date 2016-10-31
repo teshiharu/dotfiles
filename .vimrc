@@ -25,6 +25,12 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+NeoBundle 'slim-template/vim-slim'
+NeoBundle 'Yggdroot/indentLine'
+" 予測変換
+NeoBundle "Shougo/neocomplete.vim"
+" 画面上を移動
+NeoBundle 'Lokaltog/vim-easymotion'
 
 " ファイルをツリー表示ctr+e
 NeoBundle 'scrooloose/nerdtree'
@@ -88,11 +94,11 @@ set number "行番号を表示
 set cursorline "カーソル行の背景色を変える
 set scrolloff=8 "カーソル上下8行の視界を確保
 set t_Co=256 "スクリーンを256色に
-set tabstop=4 "tab文字が占める幅
+set tabstop=2 "tab文字が占める幅
 set autoindent "改行時に前の行のインデントを継続
 set expandtab "タブ入力をスペースで行う
 set showtabline=2 " 常にタブラインを表示
-set shiftwidth=4 "自動インデントでずれる幅
+set shiftwidth=2 "自動インデントでずれる幅
 "set colorcolumn=80 "80文字目に縦ライン
 
 "色変更
@@ -123,6 +129,12 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+
+"ctrm押しながらでスピードアップ
+noremap <C-j> jjj
+noremap <C-k> kkk
+noremap <C-h> hhh
+noremap <C-l> lll
 " jjでエスケープ
 imap jj <esc>
 " PerlTidy Perl/Tidyがインストールされている必要あり
@@ -211,4 +223,81 @@ augroup HighlightTrailingSpaces
   autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=darkred ctermbg=darkred
   autocmd VimEnter,WinEnter * match TrailingSpaces /　\|\s\+$/
 augroup END
+
+set cursorline
+set cursorcolumn
+highlight CursorColumn ctermbg=239
+highlight CursorLine ctermbg=239
+" 挿入モードの時のみ、カーソル行をハイライトする
+autocmd InsertEnter * highlight CursorLine ctermbg=23
+autocmd InsertLeave * highlight CursorLine ctermbg=240
+hi Comment ctermfg=246
+
+" add syntax highlighting
+au BufNewFile,BufRead *.json.jbuilder set ft=ruby
+au BufRead,BufNewFile *.scss set filetype=sass
+
+" インデントを見やすく表示
+let g:indentLine_color_term = 242
+let g:indentLine_char = "┆"
+
+" xでのヤンクでクリップポードを上書きしないように
+noremap x "_x
+
+" 予測変換 {{{
+  highlight Pmenu ctermbg=4
+  highlight PmenuSel ctermbg=1
+  highlight PMenuSbar ctermbg=4
+  " 補完ウィンドウの設定
+  set completeopt=menuone
+  " 補完ウィンドウの設定
+  set completeopt=menuone
+  " rsenseでの自動補完機能を有効化
+  let g:rsenseUseOmniFunc = 1
+  " let g:rsenseHome = '/usr/local/lib/rsense-0.3'
+  " auto-ctagsを使ってファイル保存時にtagsファイルを更新
+  let g:auto_ctags = 1
+  " 起動時に有効化
+  let g:neocomplcache_enable_at_startup = 1
+  " 大文字が入力されるまで大文字小文字の区別を無視する
+  let g:neocomplcache_enable_smart_case = 1
+  " _(アンダースコア)区切りの補完を有効化
+  let g:neocomplcache_enable_underbar_completion = 1
+  let g:neocomplcache_enable_camel_case_completion  =  1
+  " 最初の補完候補を選択状態にする
+  let g:neocomplcache_enable_auto_select = 1
+  " ポップアップメニューで表示される候補の数
+  let g:neocomplcache_max_list = 20
+  " シンタックスをキャッシュするときの最小文字長
+  let g:neocomplcache_min_syntax_length = 3
+  " 補完の設定
+  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
+  if !exists('g:neocomplete#keyword_patterns')
+          let g:neocomplete#keyword_patterns = {}
+  endif
+  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" }}} 
+
+" vim-easymotion {{{
+let g:EasyMotion_do_mapping = 0
+nmap m <Plug>(easymotion-sn)
+xmap m <Plug>(easymotion-sn)
+map m <Plug>(easymotion-sn)
+nmap g/ <Plug>(easymotion-sn)
+xmap g/ <Plug>(easymotion-sn)
+omap g/ <Plug>(easymotion-tn)
+let g:EasyMotion_smartcase = 1
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+let g:EasyMotion_startofline = 0
+let g:EasyMotion_keys = 'asdfghjklweruioty'
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
+hi EasyMotionTarget guifg=#80a0ff ctermfg=81
+" }}}
 
